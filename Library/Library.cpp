@@ -21,13 +21,13 @@ int main(int agrc, char* argv[]) {
 		isClient = false;
 	}
 
-#ifdef __linux__
-	isClient = false;
-	char cwd[PATH_MAX];
-	if (getcwd(cwd, sizeof(cwd)) != NULL) {
-		printf("Current working dir: %s\n", cwd);
-	}
-#endif
+//#ifdef __linux__
+//	isClient = false;
+//	char cwd[PATH_MAX];
+//	if (getcwd(cwd, sizeof(cwd)) != NULL) {
+//		printf("Current working dir: %s\n", cwd);
+//	}
+//#endif
 
 	if (isClient)
 	{
