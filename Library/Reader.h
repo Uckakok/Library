@@ -14,7 +14,7 @@
 	#define SOCKET_ERROR   (-1)
 #endif
 
-#include "Structs.h"
+#include "Defines.h"
 #include "vector"
 
 class Reader {

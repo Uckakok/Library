@@ -3,8 +3,12 @@
 #include <string>
 
 #define MAXPACKETTEXT   64
-#define IPADDRESS       "172.30.46.162"
-#define PORT            49833
+
+extern std::string g_IpAddress;
+extern int g_Port;
+
+bool readConfig();
+
 
 enum Action {
     CREATE_ACCOUNT,

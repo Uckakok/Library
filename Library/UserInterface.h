@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Structs.h"
+#include "Defines.h"
 #include <string>
 #ifdef _WIN32
     #define _WINSOCK_DEPRECATED_NO_WARNINGS

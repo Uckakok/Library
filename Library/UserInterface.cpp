@@ -13,6 +13,10 @@ UserInterface::~UserInterface()
 
 UserInterface::UserInterface()
 {
+    if (!readConfig())
+    {
+        std::cout << "Couldn't read config file. Trying with fallback values" << std::endl;
+    }
 #ifdef _WIN32
     WSADATA wsaData;
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
@@ -114,8 +118,8 @@ void UserInterface::SendPacket(const Packet& packet)
 
     sockaddr_in serverAddr;
     serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(PORT);
-    serverAddr.sin_addr.s_addr = inet_addr(IPADDRESS);
+    serverAddr.sin_port = htons(g_Port);
+    serverAddr.sin_addr.s_addr = inet_addr(g_IpAddress.c_str());
 
     if (connect(sock, (sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR) {
 #ifdef _WIN32

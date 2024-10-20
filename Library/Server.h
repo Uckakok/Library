@@ -14,7 +14,7 @@
 #include <thread>
 #include "LibrarySystem.h"
 #include <unordered_map>
-#include "Structs.h"
+#include "Defines.h"
 #include <iostream>
 
 class Server {

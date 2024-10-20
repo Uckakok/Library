@@ -5,12 +5,13 @@ cmake_minimum_required(VERSION 3.12)
 project(LibraryProject LANGUAGES CXX)
 
 # Add executable and link the source files
-add_executable(Library "Library.cpp" ${TARGET_SRC})
+add_executable(Library "Library.cpp" ${TARGET_SRC} "Defines.cpp")
 
 
 if (LINUX)
     configure_file(users users COPYONLY)
     configure_file(books books COPYONLY)
+    configure_file(config cofig COPYONLY)
 endif()
 
 # If CMake version is greater than 3.12, set the C++ standard to C++14
@@ -25,20 +26,22 @@ set(TARGET_H
     LibrarySystem.h
     Reader.h
     Server.h
-    Structs.h
+    Defines.h
 )
 
 # List all source files here
 set(TARGET_SRC
     Book.cpp
-    UserInterface.cpp  # This contains the definition for UserInterface
+    UserInterface.cpp
     LibrarySystem.cpp
     Reader.cpp
-    Server.cpp     # This contains the definition for Server
+    Server.cpp
+    Defines.cpp
 )
 
 set_source_files_properties(${PROTOBUF_FILES} PROPERTIES 
     COMPILE_DEFINITIONS _SCL_SECURE_NO_WARNINGS 
+    COMPILE_DEFINITIONS _CRT_SECURE_NO_WARNINGS
     COMPILE_FLAGS /W2
 )
 

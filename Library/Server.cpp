@@ -16,6 +16,10 @@ Server::~Server()
 }
 
 void Server::Start() {
+    if (!readConfig())
+    {
+        std::cout << "Couldn't read config file. Trying with fallback values" << std::endl;
+    }
     m_system = LibrarySystem::GetInstance();
 
 #ifdef _WIN32
@@ -42,12 +46,12 @@ void Server::Start() {
 
     sockaddr_in serverAddr;
     serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(PORT);
+    serverAddr.sin_port = htons(g_Port);
     serverAddr.sin_addr.s_addr = INADDR_ANY;
 
     if (bind(serverSocket, (sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR) 
     {
-        std::cerr << "Error binding socket." << std::endl;
+        std::cerr << "Error binding socket: " << g_IpAddress << ", " << g_Port << std::endl;
 #ifdef _WIN32
         closesocket(serverSocket);
         WSACleanup();
@@ -69,7 +73,7 @@ void Server::Start() {
         return;
     }
 
-    std::cout << "Server started. Listening on port " << PORT << "..." << std::endl;
+    std::cout << "Server started. Listening on port " << g_Port << "..." << std::endl;
 
     AcceptConnections();
 
