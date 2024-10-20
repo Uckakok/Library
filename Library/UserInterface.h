@@ -15,8 +15,6 @@
     #define SOCKET_ERROR   (-1)
 #endif
 
-using namespace std;
-
 class UserInterface {
 public:
     ~UserInterface();
@@ -25,15 +23,11 @@ public:
 
     void MainMenu();
 
-
 private:
-
-    // Method to create a new account
     void CreateAccount();
 
-    // Method to login
     void Login();
 
     void SendPacket(const Packet& packet);
-    void StartUserSession(string SessionId, SOCKET ServerSocket);
+    void StartUserSession(std::string SessionId, SOCKET ServerSocket);
 };

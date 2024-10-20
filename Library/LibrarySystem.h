@@ -5,11 +5,9 @@
 #include "Book.h"
 #include "Reader.h"
 
-using namespace std;
-
 typedef struct {
 	Reader* User;
-	string Title;
+	std::string Title;
 } Subscriber;
 
 
@@ -27,17 +25,17 @@ private:
 	void SaveBooks();
 	void LoadBooks();
 	void LoadUsers();
-	vector<Subscriber> Subscribers;
-	vector<Reader*> Readers;
-	vector<Book> BookCollection;
+	std::vector<Subscriber> m_subscribers;
+	std::vector<Reader*> m_readers;
+	std::vector<Book> m_bookCollection;
 public:
-	vector<Book*> ShowOwned(Reader* User);
-	vector<Book*> ShowCatalogue();
-	Reader* Login(string Username, string Password);
-	Reader* CreateAccount(string Username, string Password);
+	std::vector<Book*> ShowOwned(Reader* User);
+	std::vector<Book*> ShowCatalogue();
+	Reader* Login(std::string Username, std::string Password);
+	Reader* CreateAccount(std::string Username, std::string Password);
 	static LibrarySystem * GetInstance();
-	bool SubscribeUserToBook(Reader* Subscriber, string Title);
-	BookStatus CheckBookAvailibility(string Title);
-	bool ReturnBook(Reader* User, string BookTitle);
-	bool BorrowBook(Reader* User, string Title);
+	bool SubscribeUserToBook(Reader* Subscriber, std::string Title);
+	BookStatus CheckBookAvailibility(std::string Title);
+	bool ReturnBook(Reader* User, std::string BookTitle);
+	bool BorrowBook(Reader* User, std::string Title);
 };

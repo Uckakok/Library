@@ -1,29 +1,29 @@
 #include "Book.h"
 
-Book::Book(string NewTitle, string NewAuthor)
+Book::Book(std::string newTitle, std::string newAuthor)
 {
-	Title = NewTitle;
-	Author = NewAuthor;
-	Status = BookStatus::available;
+	m_title = newTitle;
+	m_author = newAuthor;
+	m_status = BookStatus::available;
 	CurrentOwner = nullptr;
 }
 
-string Book::GetTitle()
+std::string Book::GetTitle()
 {
-	return Title;
+	return m_title;
 }
 
 BookStatus Book::GetStatus()
 {
-	return Status;
+	return m_status;
 }
 
-string Book::GetAuthor()
+std::string Book::GetAuthor()
 {
-	return Author;
+	return m_author;
 }
 
-void Book::ChangeStatus(BookStatus NewStatus)
+void Book::ChangeStatus(BookStatus newStatus)
 {
-	Status = NewStatus;
+	m_status = newStatus;
 }

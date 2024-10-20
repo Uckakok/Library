@@ -1,6 +1,4 @@
-﻿
-
-#pragma comment(lib, "ws2_32.lib")
+﻿#pragma comment(lib, "ws2_32.lib")
 
 #include "Library.h"
 #include "LibrarySystem.h"
@@ -18,30 +16,30 @@ int main(int agrc, char* argv[]) {
 
 	srand(static_cast<unsigned int>(std::time(nullptr)));
 
-	bool bIsClient = true;
+	bool isClient = true;
 	if (agrc == 2 && strcmp(argv[1], "-server") == 0) {
-		bIsClient = false;
+		isClient = false;
 	}
 
 #ifdef __linux__
-	bIsClient = false;
+	isClient = false;
 	char cwd[PATH_MAX];
 	if (getcwd(cwd, sizeof(cwd)) != NULL) {
 		printf("Current working dir: %s\n", cwd);
 	}
 #endif
 
-	if (bIsClient)
+	if (isClient)
 	{
-		UserInterface CurrentInterface;
-		CurrentInterface.MainMenu();
+		UserInterface currentInterface;
+		currentInterface.MainMenu();
 	}
 	else
 	{
-		cout << "Running as server" << endl;
+		std::cout << "Running as server" << std::endl;
 		Server::GetInstance();
 	}
 
-	cout << "Finished program for: " << (bIsClient ? "client" : "server") << endl;
+	std::cout << "Finished program for: " << (isClient ? "client" : "server") << std::endl;
 	return 0;
 }

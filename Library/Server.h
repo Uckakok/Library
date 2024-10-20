@@ -17,8 +17,6 @@
 #include "Structs.h"
 #include <iostream>
 
-using namespace std;
-
 class Server {
 public:
     static Server* GetInstance() {
@@ -35,9 +33,9 @@ public:
     ~Server();
 
 private:
-    void SendUserNotification(SOCKET clientSocket, string Message);
+    void SendUserNotification(SOCKET clientSocket, std::string message);
 
-    LibrarySystem* System;
+    LibrarySystem* m_system;
     // Method to start the server
     void Start();
 
@@ -46,21 +44,16 @@ private:
     Server() = default;
 
     SOCKET serverSocket;
-    vector<string> ActiveSessionIds;
-    unordered_map<string, Reader*> SessionReaders;
+    std::vector<std::string> m_activeSessionIds;
+    std::unordered_map<std::string, Reader*> m_sessionReaders;
 
-    // Method to accept incoming connections and handle packets
     void AcceptConnections();
 
-    // Method to process received packet
     Reader* ProcessPacket(const Packet& packet, SOCKET clientSocket);
 
-    // Method to generate session Id for user. Needs improvement
-    string GenerateSessionId();
+    std::string GenerateSessionId();
 
-    // Verifies if session id is recognized
-    bool VerifySessionId(const string& sessionId);
+    bool VerifySessionId(const std::string& sessionId);
 
-    // Call when user sent a request with incorrect session id
     void UserVerificationFailed(SOCKET clientSocket);
 };

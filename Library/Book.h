@@ -4,8 +4,6 @@
 
 class Reader;
 
-using namespace std;
-
 enum BookStatus {
 	available,
 	borrowed,
@@ -15,14 +13,14 @@ enum BookStatus {
 
 class Book {
 private:
-	string Title;
-	string Author;
-	BookStatus Status;
+	std::string m_title;
+	std::string m_author;
+	BookStatus m_status;
 public:
-	Book(string NewTitle, string NewAuthor);
+	Book(std::string NewTitle, std::string NewAuthor);
 	Reader* CurrentOwner;
-	string GetTitle();
+	std::string GetTitle();
 	BookStatus GetStatus();
-	string GetAuthor();
+	std::string GetAuthor();
 	void ChangeStatus(BookStatus NewStatus);
 };

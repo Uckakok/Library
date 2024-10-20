@@ -5,11 +5,8 @@
 #include <string.h>
 #include "iostream"
 
-using namespace std;
-
 void Reader::SendPacket(const Packet& packet)
 {
-	// Send packet
 	if (send(ServerSocket, reinterpret_cast<const char*>(&packet), sizeof(packet), 0) == SOCKET_ERROR) {
 		#ifdef _WIN32
     closesocket(ServerSocket);
@@ -23,7 +20,6 @@ void Reader::SendPacket(const Packet& packet)
 void Reader::ListenToMessages()
 {
 	while (true) {
-		// Read from the socket and process messages
 		Packet packet;
 		int bytesReceived;
 #ifdef _WIN32
@@ -52,7 +48,6 @@ void Reader::ListenToMessages()
 			ProcessPacket(packet);
 		}
 
-		// Sleep for 100 milliseconds
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
 }
@@ -62,34 +57,34 @@ void Reader::ProcessPacket(Packet packet)
 	//Simply print what happened
 	switch (packet.action) {
 	case BORROW_BOOK:
-		cout << "Book " << packet.Title << " borrowed successfully." << endl;
+		std::cout << "Book " << packet.Title << " borrowed successfully." << std::endl;
 		break;
 	case BORROW_FAIL:
-		cout << "Failed to borrow book " << packet.Title << "." << endl;
+		std::cout << "Failed to borrow book " << packet.Title << "." << std::endl;
 		break;
 	case RETURN_BOOK:
-		cout << "Book " << packet.Title << " returned successfully." << endl;
+		std::cout << "Book " << packet.Title << " returned successfully." << std::endl;
 		break;
 	case RETURN_FAIL:
-		cout << "Failed to return book" << packet.Title << "." << endl;
+		std::cout << "Failed to return book" << packet.Title << "." << std::endl;
 		break;
 	case SUBSCRIBE_BOOK:
-		cout << "Subscribed to book " << packet.Title << " successfully." << endl;
+		std::cout << "Subscribed to book " << packet.Title << " successfully." << std::endl;
 		break;
 	case SUBSCRIBE_FAIL:
-		cout << "Failed to subscribe to book " << packet.Title << "." << endl;
+		std::cout << "Failed to subscribe to book " << packet.Title << "." << std::endl;
 		break;
 	case BOOK_AVAILABLE:
-		cout << "Book " << packet.Title << " is available." << endl;
+		std::cout << "Book " << packet.Title << " is available." << std::endl;
 		break;
 	case BOOK_UNAVAILABLE:
-		cout << "Book " << packet.Title << " is unavailable." << endl;
+		std::cout << "Book " << packet.Title << " is unavailable." << std::endl;
 		break;
 	case NOTIFICATION:
-		cout << "Notification: " << packet.Username << endl;
+		std::cout << "Notification: " << packet.Username << std::endl;
 		break;
 	case BOOK_INFO:
-		cout << "Title: " << packet.Title << "\tAuthor: " << packet.Author << endl;
+		std::cout << "Title: " << packet.Title << "\tAuthor: " << packet.Author << std::endl;
 	default:
 		//cout << "Unexpected packet action encountered." << endl;
 		;
@@ -102,18 +97,18 @@ void Reader::ClientMenu()
 	readerThread.detach();
 
 	do {
-		cout << "1 - borrow a book" << endl;
-		cout << "2 - display borrowed books" << endl;
-		cout << "3 - return a book" << endl;
-		cout << "4 - subscribe to a book" << endl;
-		cout << "5 - check book availability" << endl;
-		cout << "6 - display catalog" << endl;
-		cout << "0 - logout" << endl;
+		std::cout << "1 - borrow a book" << std::endl;
+		std::cout << "2 - display borrowed books" << std::endl;
+		std::cout << "3 - return a book" << std::endl;
+		std::cout << "4 - subscribe to a book" << std::endl;
+		std::cout << "5 - check book availability" << std::endl;
+		std::cout << "6 - display catalog" << std::endl;
+		std::cout << "0 - logout" << std::endl;
 		int Choice;
-		while (!(cin >> Choice)) {
-			cout << "Invalid input. Please enter a valid option." << endl;
-			cin.clear(); // Clear fail state
-			cin.ignore(1000, '\n');
+		while (!(std::cin >> Choice)) {
+			std::cout << "Invalid input. Please enter a valid option." << std::endl;
+			std::cin.clear();
+			std::cin.ignore(1000, '\n');
 		}
 		switch (Choice) {
 		case 0:
@@ -125,10 +120,10 @@ void Reader::ClientMenu()
 			return;
 		case 1: {
 			char Title[MAXPACKETTEXT];
-			cout << "Enter title of the book you want to borrow: ";
+			std::cout << "Enter title of the book you want to borrow: ";
 			while (getchar() != '\n');
 			if (scanf("%[^\n]", Title) != 1) {
-				cout << "Invalid input. Please enter a valid title." << endl;
+				std::cout << "Invalid input. Please enter a valid title." << std::endl;
 				while (getchar() != '\n');
 			}
 			while (getchar() != '\n');
@@ -147,10 +142,10 @@ void Reader::ClientMenu()
 			break; }
 		case 3: {
 			char Title[MAXPACKETTEXT];
-			cout << "Enter title of the book you want to return: ";
+			std::cout << "Enter title of the book you want to return: ";
 			while (getchar() != '\n');
 			if (scanf("%[^\n]", Title) != 1) {
-				cout << "Invalid input. Please enter a valid title." << endl;
+				std::cout << "Invalid input. Please enter a valid title." << std::endl;
 				while (getchar() != '\n');
 			}
 			while (getchar() != '\n');
@@ -164,10 +159,10 @@ void Reader::ClientMenu()
 		}
 		case 4: {
 			char Title[MAXPACKETTEXT];
-			cout << "Enter title of the book you want to subscribe to: ";
+			std::cout << "Enter title of the book you want to subscribe to: ";
 			while (getchar() != '\n');
 			if (scanf("%[^\n]", Title) != 1) {
-				cout << "Invalid input. Please enter a valid title." << endl;
+				std::cout << "Invalid input. Please enter a valid title." << std::endl;
 				while (getchar() != '\n');
 			}
 			while (getchar() != '\n');
@@ -180,10 +175,10 @@ void Reader::ClientMenu()
 			break; }
 		case 5: {
 			char Title[MAXPACKETTEXT];
-			cout << "Enter title of the book you want to check availability for: ";
+			std::cout << "Enter title of the book you want to check availability for: ";
 			while (getchar() != '\n');
 			if (scanf("%[^\n]", Title) != 1) {
-				cout << "Invalid input. Please enter a valid title." << endl;
+				std::cout << "Invalid input. Please enter a valid title." << std::endl;
 				while (getchar() != '\n');
 			}
 			while (getchar() != '\n');
@@ -213,7 +208,7 @@ void Reader::AddBorrowedBook(Book * NewBook)
 	Books.push_back(NewBook);
 }
 
-void Reader::PostUserNotification(string Message)
+void Reader::PostUserNotification(std::string Message)
 {
 	Notifications.push_back(Message);
 }
