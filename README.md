@@ -32,7 +32,7 @@ Please note that the application does not implement secure handling of passwords
 1.  **Clone the Repository**:
     
     
-    `git clone https://github.com/yourusername/library.git
+    `git clone https://github.com/Uckakok/library.git
     cd library` 
     
 2.  **Build the Project**:
